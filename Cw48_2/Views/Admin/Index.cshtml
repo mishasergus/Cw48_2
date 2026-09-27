@@ -1,0 +1,74 @@
+﻿@model IEnumerable<Cw48_2.DTOS.UserDto>
+
+
+@{
+    ViewData["Title"] = "Users";
+}
+<h2>Add user</h2>
+<form asp-controller="Admin" asp-action="CreateUser" method="post">
+    @Html.AntiForgeryToken()
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <div class="mb-3">
+        <label class="form-label">Name</label>
+        <input name="Name" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Email</label>
+        <input name="Email" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Password</label>
+        <input name="Password" type="password" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Оберіть тип акаунту</label>
+        <select name="Role" class="form-select">
+            <option value="Standard">Standard (Звичайний)</option>
+            <option value="Pro">Pro (Преміум)</option>
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Register</button>
+</form>
+
+<h2>Delete user</h2>
+
+<form asp-controller="Admin" asp-action="DelUser" method="post" class="row row-cols-lg-auto g-3 align-items-center mb-4">
+    @Html.AntiForgeryToken()
+    <div class="col-12">
+        <input type="email" name="email" class="form-control" placeholder="Введіть Email для видалення" required />
+    </div>
+    <div class="col-12">
+        <button type="submit" class="btn btn-danger">
+            Delete
+        </button>
+    </div>
+</form>
+
+<h2>@ViewData["Title"]</h2>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Role</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>@user.Name</td>
+                <td>@user.Email</td>
+                <td>@user.Role</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-controller="Home" asp-action="Index" class="btn btn-secondary">Home</a>
